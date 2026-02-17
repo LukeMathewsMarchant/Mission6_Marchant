@@ -1,0 +1,27 @@
+@model Movie
+@{
+    ViewData["Title"] = "Confirm Deletion";
+}
+
+<div class="container mt-4">
+    <div class="alert alert-danger">
+        <h2>Confirm Deletion</h2>
+        <p>Are you sure you want to permanently delete <strong>@Model.Title</strong> from the collection?</p>
+    </div>
+
+    <div class="card card-body">
+        <ul>
+            <li><strong>Director:</strong> @Model.Director</li>
+            <li><strong>Year:</strong> @Model.Year</li>
+            <li><strong>Category:</strong> @(Model.Category?.CategoryName ?? "N/A")</li>
+        </ul>
+
+        <form method="post" asp-action="Delete">
+            @* Hidden ID is required so the POST action knows which one to delete *@
+            <input type="hidden" asp-for="MovieId" />
+            
+            <button type="submit" class="btn btn-danger">Confirm Delete</button>
+            <a asp-action="ViewMovies" class="btn btn-secondary">Cancel</a>
+        </form>
+    </div>
+</div>
